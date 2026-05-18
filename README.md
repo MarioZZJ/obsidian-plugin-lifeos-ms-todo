@@ -8,9 +8,10 @@ An unofficial plugin for [Obsidian](https://obsidian.md) that allows you to inte
 
 - **Sidebar Integration**: View your to-dos in the Obsidian sidebar without switching windows.
 - **Task Management**:
-    - ✅ **View Tasks**: Automatically loads your default task list.
-    - ➕ **Add Tasks**: Quickly create new tasks via the input box at the bottom.
+    - ✅ **View Tasks**: Select and view tasks from any Microsoft To Do list, not only the default list.
+    - ➕ **Add Tasks**: Quickly create new tasks in the selected list via the input box at the bottom.
     - ☑️ **Complete Tasks**: Click the checkbox to mark tasks as completed (syncs to Microsoft To Do).
+    - 📝 **Markdown Sync**: Write all lists, tasks, notes, and checklist steps into an Obsidian note.
 - **Secure Login**: Uses the official Microsoft OAuth2 authorization flow and supports automatic Access Token refreshing, so you don't need to log in frequently.
 
 ## 🛠️ Installation
@@ -32,8 +33,10 @@ An unofficial plugin for [Obsidian](https://obsidian.md) that allows you to inte
 
 ### Common Operations
 
+- **Select List**: Choose a Microsoft To Do list from the dropdown at the top of the sidebar.
 - **Refresh List**: Click the "Refresh" button.
-- **Add Task**: Type in the input box at the bottom of the view and press `Enter`.
+- **Add Task**: Type in the input box at the bottom of the selected list and press `Enter`.
+- **Sync to Note**: Click "Sync to note" or run the command **Sync Microsoft To Do to markdown**. The default target file is `Microsoft To Do.md` and can be changed in settings.
 - **Sign Out**: Click "Sign out" at the top of the view, or sign out via the plugin settings page.
 
 ## 📄 License
@@ -52,9 +55,10 @@ An unofficial plugin for [Obsidian](https://obsidian.md) that allows you to inte
 
 - **侧边栏集成**：在 Obsidian 侧边栏中查看您的待办事项，无需切换窗口。
 - **任务管理**：
-    - ✅ **查看任务**：自动加载您的默认任务列表。
-    - ➕ **添加任务**：通过底部的输入框快速创建新任务。
+    - ✅ **查看任务**：可以选择并查看任意 Microsoft To Do 清单，不再只读取默认清单。
+    - ➕ **添加任务**：通过底部输入框把任务创建到当前选中的清单。
     - ☑️ **完成任务**：点击复选框即可标记任务完成（同步至 Microsoft To Do）。
+    - 📝 **同步到文档**：将全部清单、任务、详细备注和检查步骤写入 Obsidian 笔记。
 - **安全登录**：使用微软官方 OAuth2 授权流程，支持自动刷新 Access Token，无需频繁登录。
 
 ## 🛠️ 安装方法
@@ -76,8 +80,10 @@ An unofficial plugin for [Obsidian](https://obsidian.md) that allows you to inte
 
 ### 常用操作
 
+- **选择清单**：在侧边栏顶部的下拉框选择 Microsoft To Do 清单。
 - **刷新列表**：点击 "Refresh" 按钮。
-- **添加任务**：在视图底部的输入框输入内容，按下 `Enter` 键即可。
+- **添加任务**：在当前清单底部的输入框输入内容，按下 `Enter` 键即可。
+- **同步到文档**：点击 "Sync to note"，或执行命令 **Sync Microsoft To Do to markdown**。默认写入 `Microsoft To Do.md`，可在设置页修改路径。
 - **注销账号**：在视图顶部点击 "Sign out"，或在插件设置页点击注销。
 
 ## 📄 许可证

@@ -38,3 +38,33 @@
 .todo-add-box input {
     width: 100%;
 }
+.todo-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.todo-controls select {
+    flex: 1 1 160px;
+    min-width: 0;
+}
+
+.todo-add-input {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.todo-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.todo-item-note,
+.todo-item-steps {
+    color: var(--text-muted);
+    line-height: 1.35;
+    white-space: pre-wrap;
+}
