@@ -9,9 +9,11 @@ An unofficial plugin for [Obsidian](https://obsidian.md) that allows you to inte
 - **Sidebar Integration**: View your to-dos in the Obsidian sidebar without switching windows.
 - **Task Management**:
     - ✅ **View Tasks**: Select and view tasks from any Microsoft To Do list, not only the default list.
+    - 🗂️ **Manage Lists**: Create custom lists and delete non-default lists from the sidebar.
     - ➕ **Add Tasks**: Quickly create new tasks in the selected list via the input box at the bottom.
-    - ☑️ **Complete Tasks**: Click the checkbox to mark tasks as completed (syncs to Microsoft To Do).
-    - 📝 **Markdown Sync**: Write all lists, tasks, notes, and checklist steps into an Obsidian note.
+    - ☑️ **Complete Tasks**: Click the checkbox to mark tasks as completed or reopen completed tasks.
+    - 🗓️ **Due Dates & Importance**: Edit due dates and mark tasks as important from the task detail panel.
+    - 📝 **Notes & Markdown Sync**: Edit task notes in Obsidian, and write all lists, tasks, notes, and checklist steps into an Obsidian note.
 - **Secure Login**: Uses the official Microsoft OAuth2 authorization flow and supports automatic Access Token refreshing, so you don't need to log in frequently.
 
 ## 🛠️ Installation
@@ -33,9 +35,12 @@ An unofficial plugin for [Obsidian](https://obsidian.md) that allows you to inte
 
 ### Common Operations
 
-- **Select List**: Choose a Microsoft To Do list from the dropdown at the top of the sidebar.
+- **Select List**: Choose a Microsoft To Do list from the left list sidebar.
+- **Manage Lists**: Use **New list** to create a list, or select the × button on a non-default list to delete it.
 - **Refresh List**: Click the "Refresh" button.
 - **Add Task**: Type in the input box at the bottom of the selected list and press `Enter`.
+- **Edit Details**: Select a task to edit its title, notes, due date, and important/star status.
+- **Show Completed**: Click "Show completed" to display completed tasks and reopen them if needed.
 - **Sync to Note**: Click "Sync to note" or run the command **Sync Microsoft To Do to markdown**. The default target file is `Microsoft To Do.md` and can be changed in settings.
 - **Sign Out**: Click "Sign out" at the top of the view, or sign out via the plugin settings page.
 
@@ -56,9 +61,11 @@ An unofficial plugin for [Obsidian](https://obsidian.md) that allows you to inte
 - **侧边栏集成**：在 Obsidian 侧边栏中查看您的待办事项，无需切换窗口。
 - **任务管理**：
     - ✅ **查看任务**：可以选择并查看任意 Microsoft To Do 清单，不再只读取默认清单。
+    - 🗂️ **管理清单**：可在侧边栏创建自定义清单，并删除非默认清单。
     - ➕ **添加任务**：通过底部输入框把任务创建到当前选中的清单。
-    - ☑️ **完成任务**：点击复选框即可标记任务完成（同步至 Microsoft To Do）。
-    - 📝 **同步到文档**：将全部清单、任务、详细备注和检查步骤写入 Obsidian 笔记。
+    - ☑️ **完成任务**：点击复选框即可标记任务完成，也可以重新打开已完成任务。
+    - 🗓️ **截止日期与收藏**：在任务详情面板编辑截止日期，并将任务标记为重要/收藏。
+    - 📝 **备注与同步到文档**：可在 Obsidian 里编辑任务备注，并将全部清单、任务、详细备注和检查步骤写入 Obsidian 笔记。
 - **安全登录**：使用微软官方 OAuth2 授权流程，支持自动刷新 Access Token，无需频繁登录。
 
 ## 🛠️ 安装方法
@@ -80,9 +87,12 @@ An unofficial plugin for [Obsidian](https://obsidian.md) that allows you to inte
 
 ### 常用操作
 
-- **选择清单**：在侧边栏顶部的下拉框选择 Microsoft To Do 清单。
+- **选择清单**：在左侧清单栏选择 Microsoft To Do 清单。
+- **管理清单**：使用 **New list** 创建清单，或点击非默认清单旁边的 × 删除。
 - **刷新列表**：点击 "Refresh" 按钮。
 - **添加任务**：在当前清单底部的输入框输入内容，按下 `Enter` 键即可。
+- **编辑详情**：选择任务后，可以编辑标题、备注、截止日期和重要/收藏状态。
+- **显示已完成**：点击 "Show completed" 显示已完成任务，并可按需重新打开。
 - **同步到文档**：点击 "Sync to note"，或执行命令 **Sync Microsoft To Do to markdown**。默认写入 `Microsoft To Do.md`，可在设置页修改路径。
 - **注销账号**：在视图顶部点击 "Sign out"，或在插件设置页点击注销。
 

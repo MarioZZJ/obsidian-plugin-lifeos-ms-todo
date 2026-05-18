@@ -24,6 +24,11 @@ export interface LinkedResource {
     applicationName?: string;
 }
 
+export interface TodoDateTime {
+    dateTime: string;
+    timeZone: string;
+}
+
 export interface TodoTask {
     id: string;
     title: string;
@@ -32,19 +37,26 @@ export interface TodoTask {
         content?: string;
         contentType?: string;
     };
-    dueDateTime?: {
-        dateTime: string;
-        timeZone: string;
-    };
-    reminderDateTime?: {
-        dateTime: string;
-        timeZone: string;
-    };
+    dueDateTime?: TodoDateTime;
+    reminderDateTime?: TodoDateTime;
     importance?: 'low' | 'normal' | 'high';
+    isReminderOn?: boolean;
     createdDateTime?: string;
     lastModifiedDateTime?: string;
+    completedDateTime?: TodoDateTime;
     checklistItems?: ChecklistItem[];
     linkedResources?: LinkedResource[];
+}
+
+export interface UpdateTaskPayload {
+    title?: string;
+    status?: TodoTask['status'];
+    body?: {
+        content: string;
+        contentType: 'text' | 'html';
+    };
+    dueDateTime?: TodoDateTime | null;
+    importance?: TodoTask['importance'];
 }
 
 interface GraphCollection<T> {
@@ -92,6 +104,11 @@ export class MsTodoApi {
             },
             body: body ? JSON.stringify(body) : undefined,
         });
+
+        if (method === 'DELETE' || response.status === 204) {
+            return undefined as T;
+        }
+
         return response.json as T;
     }
 
@@ -109,7 +126,8 @@ export class MsTodoApi {
     }
 
     async getTaskLists(): Promise<TodoList[]> {
-        return this.getCollection<TodoList>(`${GRAPH_ENDPOINT}/me/todo/lists`);
+        const lists = await this.getCollection<TodoList>(`${GRAPH_ENDPOINT}/me/todo/lists`);
+        return lists.filter((list) => list.wellknownListName !== 'flaggedEmails');
     }
 
     async getTasks(listId: string, includeCompleted: boolean = false): Promise<TodoTask[]> {
@@ -118,12 +136,41 @@ export class MsTodoApi {
         return this.getCollection<TodoTask>(url);
     }
 
+    async createTaskList(displayName: string): Promise<TodoList> {
+        return this.request<TodoList>(`${GRAPH_ENDPOINT}/me/todo/lists`, 'POST', { displayName });
+    }
+
+    async deleteTaskList(listId: string): Promise<void> {
+        await this.request<void>(`${GRAPH_ENDPOINT}/me/todo/lists/${listId}`, 'DELETE');
+    }
+
     async createTask(listId: string, title: string): Promise<TodoTask> {
         return this.request<TodoTask>(`${GRAPH_ENDPOINT}/me/todo/lists/${listId}/tasks`, 'POST', { title });
     }
 
+    async updateTask(listId: string, taskId: string, payload: UpdateTaskPayload): Promise<TodoTask> {
+        return this.request<TodoTask>(`${GRAPH_ENDPOINT}/me/todo/lists/${listId}/tasks/${taskId}`, 'PATCH', payload as Record<string, unknown>);
+    }
+
     async completeTask(listId: string, taskId: string): Promise<TodoTask> {
-        return this.request<TodoTask>(`${GRAPH_ENDPOINT}/me/todo/lists/${listId}/tasks/${taskId}`, 'PATCH', { status: 'completed' });
+        return this.updateTask(listId, taskId, { status: 'completed' });
+    }
+
+    async reopenTask(listId: string, taskId: string): Promise<TodoTask> {
+        return this.updateTask(listId, taskId, { status: 'notStarted' });
+    }
+
+    async updateTaskBody(listId: string, taskId: string, content: string): Promise<TodoTask> {
+        return this.updateTask(listId, taskId, { body: { content, contentType: 'text' } });
+    }
+
+    async updateTaskDueDate(listId: string, taskId: string, date: string): Promise<TodoTask> {
+        const dueDateTime = date ? { dateTime: `${date}T00:00:00`, timeZone: 'UTC' } : null;
+        return this.updateTask(listId, taskId, { dueDateTime });
+    }
+
+    async toggleImportant(listId: string, task: TodoTask): Promise<TodoTask> {
+        return this.updateTask(listId, task.id, { importance: task.importance === 'high' ? 'normal' : 'high' });
     }
 
     async syncAllTasksToMarkdown(): Promise<{ path: string; listCount: number; taskCount: number }> {
