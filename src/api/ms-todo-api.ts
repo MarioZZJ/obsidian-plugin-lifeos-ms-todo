@@ -2,6 +2,7 @@ import { Notice, requestUrl } from 'obsidian';
 import { AuthManager } from '../auth';
 import type MsTodoPlugin from '../main';
 import { buildMarkdownDocument } from '../sync/markdown';
+import { graphErrorMessage, requestGraphUrlWithRetry } from './graph-request';
 
 const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v1.0';
 
@@ -95,7 +96,7 @@ export class MsTodoApi {
 
     async request<T>(url: string, method: string = 'GET', body?: Record<string, unknown>): Promise<T> {
         const token = await this.getValidToken();
-        const response = await requestUrl({
+        const response = await requestGraphUrlWithRetry({
             url,
             method,
             headers: {
@@ -103,10 +104,14 @@ export class MsTodoApi {
                 'Content-Type': 'application/json',
             },
             body: body ? JSON.stringify(body) : undefined,
-        });
+        }, requestUrl);
 
         if (method === 'DELETE' || response.status === 204) {
             return undefined as T;
+        }
+
+        if (response.status >= 400) {
+            throw new Error(graphErrorMessage(response));
         }
 
         return response.json as T;
@@ -175,10 +180,13 @@ export class MsTodoApi {
 
     async syncAllTasksToMarkdown(): Promise<{ path: string; listCount: number; taskCount: number }> {
         const lists = await this.getTaskLists();
-        const listsWithTasks = await Promise.all(lists.map(async (list) => ({
-            list,
-            tasks: await this.getTasks(list.id, true),
-        })));
+        const listsWithTasks: Array<{ list: TodoList; tasks: TodoTask[] }> = [];
+        for (const list of lists) {
+            listsWithTasks.push({
+                list,
+                tasks: await this.getTasks(list.id, true),
+            });
+        }
         const markdown = buildMarkdownDocument(listsWithTasks);
         await this.plugin.app.vault.adapter.write(this.plugin.settings.markdownSyncPath, markdown);
         const taskCount = listsWithTasks.reduce((sum, item) => sum + item.tasks.length, 0);

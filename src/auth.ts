@@ -75,7 +75,7 @@ export class AuthManager {
             body: body.toString()
         });
 
-        return response.json;
+        return response.json as TokenResponse;
     }
 
     // 3. 刷新 Token (当 Access Token 过期时调用)
@@ -94,6 +94,6 @@ export class AuthManager {
             body: body.toString()
         });
 
-        return response.json;
+        return response.json as TokenResponse;
     }
 }

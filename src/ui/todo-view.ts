@@ -95,7 +95,7 @@ export class TodoView extends ItemView {
         const syncBtn = headerActions.createEl('button', { text: 'Sync to note', cls: 'todo-primary-button' });
         const logoutBtn = headerActions.createEl('button', { text: 'Sign out', cls: 'todo-ghost-button' });
         refreshBtn.onclick = () => this.render();
-        syncBtn.onclick = () => { void this.plugin.syncTasksToMarkdown(); };
+        syncBtn.onclick = () => { void this.plugin.syncConfiguredTarget(); };
         logoutBtn.onclick = async () => {
             await this.plugin.clearData();
             void this.render();

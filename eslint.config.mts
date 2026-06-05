@@ -12,7 +12,7 @@ export default tseslint.config(
 			parserOptions: {
 				projectService: {
 					allowDefaultProject: [
-						'eslint.config.js',
+						'eslint.config.mts',
 						'manifest.json'
 					]
 				},
@@ -22,6 +22,12 @@ export default tseslint.config(
 		},
 	},
 	...obsidianmd.configs.recommended,
+	{
+		rules: {
+			"obsidianmd/ui/sentence-case": "off",
+			"no-alert": "off",
+		},
+	},
 	globalIgnores([
 		"node_modules",
 		"dist",

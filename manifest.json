@@ -1,10 +1,10 @@
 {
-	"id": "simple-microsoft-todo",
-	"name": "Simple Microsoft To Do",
-	"version": "1.1.1",
+	"id": "obsidian-plugin-lifeos-ms-todo",
+	"name": "LifeOS Microsoft To Do",
+	"version": "1.2.0",
 	"minAppVersion": "0.15.0",
-	"description": "Integrate Microsoft To Do in sidebar.",
-	"author": "Ruochen0513",
-	"authorUrl": "https://github.com/Ruochen0513",
+	"description": "LifeOS-oriented Microsoft To Do integration for Obsidian.",
+	"author": "MarioZZJ",
+	"authorUrl": "https://github.com/MarioZZJ",
 	"isDesktopOnly": false
 }
